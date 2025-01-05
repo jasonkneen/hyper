@@ -119,6 +119,9 @@ const commands: Record<string, (focusedWindow?: BrowserWindow) => void> = {
   'editor:search-close': (focusedWindow) => {
     focusedWindow?.rpc.emit('session search close');
   },
+  'editor:processNaturalLanguage': (focusedWindow) => {
+    focusedWindow?.rpc.emit('process natural language');
+  },
   'cli:install': () => {
     void installCLI(true);
   },
