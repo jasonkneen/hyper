@@ -6,6 +6,7 @@ import defaultShell from 'default-shell';
 import type {IPty, IWindowsPtyForkOptions, spawn as npSpawn} from 'node-pty';
 import osLocale from 'os-locale';
 import shellEnv from 'shell-env';
+import axios from 'axios'; // Importing LLM API
 
 import * as config from './config';
 import {cliScriptPath} from './config/paths';
@@ -219,6 +220,17 @@ No fallback available, please check the shell config.
     });
 
     this.shell = shell;
+  }
+
+  async processNaturalLanguage(input: string) {
+    try {
+      const response = await axios.post('https://api.example.com/llm', { input });
+      const result = response.data.result;
+      this.batcher?.write(result);
+    } catch (error) {
+      console.error('Error processing natural language input:', error);
+      this.batcher?.write('Error processing natural language input.');
+    }
   }
 
   exit() {
