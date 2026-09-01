@@ -433,6 +433,10 @@ export default class Term extends React.PureComponent<
     void this.bellSound?.play();
   }
 
+  handleNaturalLanguageInput = (input: string) => {
+    window.rpc.emit('process natural language', input);
+  };
+
   componentDidUpdate(prevProps: TermProps) {
     if (!prevProps.cleared && this.props.cleared) {
       this.clear();
